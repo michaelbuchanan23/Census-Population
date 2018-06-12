@@ -20,24 +20,27 @@ namespace Census_Population
 
             int[] populations = new int[] { 18897109, 12828837, 9461105, 6371773, 5965343, 5946800, 5582170, 5564635, 5268860, 4552402, 4335391, 4296250, 4224851, 4192887, 3439809, 3279833, 3095313, 2812896, 2783243, 2710489, 2543482, 2356285, 2226009, 2149127, 2142508, 2134411 };
 
-            foreach (int pop in populations) {
-                Console.WriteLine($"City Population: {pop}");
-            }
 
-            int sumPop = populations.Sum();
-            Console.WriteLine($"Sum of the populations: {sumPop}");
-            Console.WriteLine(populations.Length);
-
+            //initializing variables for goal, random numbers and the randomArray which will be used to keep trying to find an array with 100,000,000 in it
             int goal = 0;
             Random rnd = new Random();
             int[] randomArray = new int[0];
+
+            //initializing a variable to tally how many times the loop iterates before it gets the correct answer
             int iteration = 0;
+
+            //while loop that will keep running until an array with 100,000,000 population is found
             while (goal != 100000000) {
+                //randomizing the size of the array
                 randomArray = new int[rnd.Next(0, 26)];
+
+                //keep iterating the array until the randomArray is full of random, unique numbers from populuations array--
+                //--and see if the total equals 100,000,000 once the array is full
                 for (int idx = 0; idx < randomArray.Length; idx++) {
                     int randNo = rnd.Next(0, 26);
+
+                    //while loop to make sure numbers are not duplicates when added to our randomArray from populations array
                     bool alreadyExists = true;
-                    //need to check in this while stmt to make sure a number is not entered twice
                     while (alreadyExists != false) {
                         alreadyExists = false;
                         randNo = rnd.Next(0, 26);
@@ -47,26 +50,30 @@ namespace Census_Population
                             }
                         }
                     }
+                    //add the unique populations number to the random array
                     randomArray[idx] = populations[randNo];
+
+                    //the goal is set to the sum of the random array
                     goal = randomArray.Sum();
                 }
-                //foreach (int h in randomArray) {
-                //    Console.Write($"{h}, ");
-                //}
-                //Console.WriteLine("");
-                //Console.WriteLine($"Goal: {goal}");
 
-                //Console.ReadLine();
-
+                //once our randomArray is equal to 100,000,000 output the answer and how many iterations that it took
                 if (randomArray.Sum() == 100000000) {
                     Console.WriteLine("");
+                    Array.Sort(randomArray);
+                    Array.Reverse(randomArray);
                     for (int idx2 = 0; idx2 < randomArray.Length; idx2++) {
-                        Console.Write($"{randomArray[idx2]}, ");
+                        if (idx2 > 0 && idx2 % 5 == 0) {
+                            Console.WriteLine("");
+                        }
+                        Console.Write($"| {randomArray[idx2]} | ");
                     }
                     Console.WriteLine("");
                     Console.WriteLine($"goal: {goal}");
+                    Console.WriteLine($"array sum: {randomArray.Sum()}");
                     Console.WriteLine($"iterations: {iteration}");
                 }
+                //increment the iteration counter to see how many times it took to get our answer
                 iteration++;
             }
         }
