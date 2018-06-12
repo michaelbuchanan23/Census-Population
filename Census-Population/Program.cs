@@ -22,44 +22,53 @@ namespace Census_Population
 
             foreach (int pop in populations) {
                 Console.WriteLine($"City Population: {pop}");
-                Console.WriteLine(populations.Length);
             }
 
             int sumPop = populations.Sum();
             Console.WriteLine($"Sum of the populations: {sumPop}");
+            Console.WriteLine(populations.Length);
 
             int goal = 0;
+            Random rnd = new Random();
+            int[] randomArray = new int[0];
+            int iteration = 0;
             while (goal != 100000000) {
-                Random rnd = new Random();
-                int[] randomArray = new int[rnd.Next(0, 26)];
+                randomArray = new int[rnd.Next(0, 26)];
                 for (int idx = 0; idx < randomArray.Length; idx++) {
                     int randNo = rnd.Next(0, 26);
-                    bool alreadyExists = false;
-                    while (alreadyExists == false) {
+                    bool alreadyExists = true;
+                    //need to check in this while stmt to make sure a number is not entered twice
+                    while (alreadyExists != false) {
+                        alreadyExists = false;
+                        randNo = rnd.Next(0, 26);
                         for (int idx3 = 0; idx3 < randomArray.Length; idx3++) {
-                            if (!populations[randNo].Equals(randomArray[idx3])) {
+                            if (populations[randNo].Equals(randomArray[idx3])) {
                                 alreadyExists = true;
-                            } else {
-                                randNo = rnd.Next(0, 26);
                             }
                         }
                     }
                     randomArray[idx] = populations[randNo];
                     goal = randomArray.Sum();
-                    }
-                foreach (int h in randomArray) {
-                    Console.WriteLine($"{h}, ");
-                    //Console.WriteLine(goal);
-                    Console.ReadLine();
-
                 }
+                //foreach (int h in randomArray) {
+                //    Console.Write($"{h}, ");
+                //}
+                //Console.WriteLine("");
+                //Console.WriteLine($"Goal: {goal}");
+
+                //Console.ReadLine();
+
                 if (randomArray.Sum() == 100000000) {
+                    Console.WriteLine("");
                     for (int idx2 = 0; idx2 < randomArray.Length; idx2++) {
-                        Console.WriteLine($"{randomArray[idx2]}, ");
+                        Console.Write($"{randomArray[idx2]}, ");
                     }
+                    Console.WriteLine("");
+                    Console.WriteLine($"goal: {goal}");
+                    Console.WriteLine($"iterations: {iteration}");
                 }
+                iteration++;
             }
-
         }
     }
 }
