@@ -13,10 +13,13 @@ namespace Census_Population
             /*
              * Solve this puzzle
              * ​Can you solve this puzzle? While not a requirement, we give priority consideration to candidates supplying a solution.
-             * The 2010 Census puts populations of 26 largest US metro areas at 18897109, 12828837, 9461105, 6371773, 5965343, 5946800, 5582170, 5564635, 5268860, 4552402, 4335391, 4296250, 4224851, 4192887, 3439809, 3279833, 3095313, 2812896, 2783243, 2710489, 2543482, 2356285, 2226009, 2149127, 2142508, and 2134411.
+             * The 2010 Census puts populations of 26 largest US metro areas at 18897109, 12828837, 9461105, 6371773, 5965343, 5946800, 
+             * 5582170, 5564635, 5268860, 4552402, 4335391, 4296250, 4224851, 4192887, 3439809, 3279833, 3095313, 2812896, 2783243, 2710489, 
+             * 2543482, 2356285, 2226009, 2149127, 2142508, and 2134411.
              * Can you find a subset of these areas where a total of exactly 100,000,000 people live, assuming the census estimates are exactly right?
              */
 
+            //initializing the integer array with the city populations
             int[] populations = new int[] { 18897109, 12828837, 9461105, 6371773, 5965343, 5946800, 5582170, 5564635, 5268860, 4552402, 4335391, 4296250, 4224851, 4192887, 3439809, 3279833, 3095313, 2812896, 2783243, 2710489, 2543482, 2356285, 2226009, 2149127, 2142508, 2134411 };
 
             //initializing variables for goal, random numbers and the randomArray which will be used to keep trying to find an array with 100,000,000 in it
@@ -33,7 +36,7 @@ namespace Census_Population
                 randomArray = new int[rnd.Next(0, 26)];
 
                 //keep iterating the array until the randomArray is full of random, unique numbers from populuations array--
-                //--and see if the total equals 100,000,000 once the array is full
+                //--then see if the total equals 100,000,000 once the array is full
                 for (int idx = 0; idx < randomArray.Length; idx++) {
                     int randNo = rnd.Next(0, 26);
 
@@ -57,8 +60,8 @@ namespace Census_Population
 
                 //once our randomArray is equal to 100,000,000 output the answer and how many iterations that it took
                 if (randomArray.Sum() == 100000000) {
-                    Array.Sort(randomArray);
-                    Array.Reverse(randomArray);
+					Array.Sort(randomArray);
+					Array.Reverse(randomArray);
                     for (int idx2 = 0; idx2 < randomArray.Length; idx2++) {
                         if (idx2 > 0 && idx2 % 6 == 0) {
                             Console.WriteLine("");
