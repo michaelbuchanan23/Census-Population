@@ -17,9 +17,7 @@ namespace Census_Population
              * Can you find a subset of these areas where a total of exactly 100,000,000 people live, assuming the census estimates are exactly right?
              */
 
-
             int[] populations = new int[] { 18897109, 12828837, 9461105, 6371773, 5965343, 5946800, 5582170, 5564635, 5268860, 4552402, 4335391, 4296250, 4224851, 4192887, 3439809, 3279833, 3095313, 2812896, 2783243, 2710489, 2543482, 2356285, 2226009, 2149127, 2142508, 2134411 };
-
 
             //initializing variables for goal, random numbers and the randomArray which will be used to keep trying to find an array with 100,000,000 in it
             int goal = 0;
@@ -59,14 +57,13 @@ namespace Census_Population
 
                 //once our randomArray is equal to 100,000,000 output the answer and how many iterations that it took
                 if (randomArray.Sum() == 100000000) {
-                    Console.WriteLine("");
                     Array.Sort(randomArray);
                     Array.Reverse(randomArray);
                     for (int idx2 = 0; idx2 < randomArray.Length; idx2++) {
-                        if (idx2 > 0 && idx2 % 5 == 0) {
+                        if (idx2 > 0 && idx2 % 6 == 0) {
                             Console.WriteLine("");
                         }
-                        Console.Write($"| {randomArray[idx2]} | ");
+                        Console.Write($"  {randomArray[idx2]}  ");
                     }
                     Console.WriteLine("");
                     Console.WriteLine($"goal: {goal}");
