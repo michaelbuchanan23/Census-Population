@@ -21,7 +21,7 @@ namespace Census_Population
 
             //initializing the integer array with the city populations
             int[] populations = new int[] { 18897109, 12828837, 9461105, 6371773, 5965343, 5946800, 5582170, 5564635, 5268860, 4552402, 4335391, 4296250, 4224851, 4192887, 3439809, 3279833, 3095313, 2812896, 2783243, 2710489, 2543482, 2356285, 2226009, 2149127, 2142508, 2134411 };
-
+			
             //initializing variables for goal, random numbers and the randomArray which will be used to keep trying to find an array with 100,000,000 in it
             int goal = 0;
             Random rnd = new Random();
@@ -32,8 +32,10 @@ namespace Census_Population
 
             //while loop that will keep running until an array with 100,000,000 population is found
             while (goal != 100000000) {
-                //randomizing the size of the array
-                randomArray = new int[rnd.Next(0, 26)];
+                //randomizing the size of the array --we know that all numbers added together are greater than 100,000,000 so it's not 26 size
+					//--and we also know that the largest 14 numbers added together are just over 100,000,000 so our array must be somewhere between
+					//--14 and 25
+                randomArray = new int[rnd.Next(14, 25)];
 
                 //keep iterating the array until the randomArray is full of random, unique numbers from populuations array--
                 //--then see if the total equals 100,000,000 once the array is full
@@ -66,12 +68,18 @@ namespace Census_Population
                         if (idx2 > 0 && idx2 % 6 == 0) {
                             Console.WriteLine("");
                         }
-                        Console.Write($"  {randomArray[idx2]}  ");
-                    }
+
+                        Console.Write($"{randomArray[idx2]}");
+
+						if (idx2 < randomArray.Length-1) {
+							Console.Write(", ");
+						}
+					}
                     Console.WriteLine("");
                     Console.WriteLine($"goal: {goal}");
                     Console.WriteLine($"array sum: {randomArray.Sum()}");
                     Console.WriteLine($"iterations: {iteration}");
+					Console.WriteLine($"array length: {randomArray.Length}");
                 }
                 //increment the iteration counter to see how many times it took to get our answer
                 iteration++;
